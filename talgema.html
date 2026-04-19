@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تلقيمه — Bakery & Tea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --cream:#F5EFE0;--cream2:#EDE4CE;--cream3:#E0D5BC;
+    --dark:#2C2923;--dark2:#4A4438;
+    --gold:#8B7355;--gold2:#A08B6E;
+    --text:#3D3526;--text2:#6B5E48;
+    --white:#FDFAF4;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden}
+
+  /* WATERMARK */
+  .watermark{position:fixed;bottom:18px;right:22px;z-index:9999;background:rgba(44,41,35,0.85);color:rgba(245,239,224,0.9);font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;padding:7px 14px;border-radius:2px;pointer-events:none;backdrop-filter:blur(4px)}
+  .watermark span{color:var(--gold2);font-weight:500}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(253,250,244,0.88);backdrop-filter:blur(12px);border-bottom:0.5px solid rgba(139,115,85,0.15)}
+  .nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;letter-spacing:0.05em;color:var(--dark)}
+  .nav-logo span{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:300;letter-spacing:0.2em;display:block;color:var(--gold);text-transform:uppercase;margin-top:2px}
+  .nav-links{display:flex;gap:32px;align-items:center}
+  .nav-links a{font-size:13px;font-weight:400;letter-spacing:0.08em;text-transform:uppercase;color:var(--text2);text-decoration:none;cursor:pointer;transition:color 0.2s}
+  .nav-links a:hover{color:var(--dark)}
+  .nav-cta{background:var(--dark)!important;color:var(--cream)!important;padding:10px 22px;border-radius:2px;font-size:12px!important;letter-spacing:0.12em!important}
+  .nav-cta:hover{background:var(--gold)!important;color:var(--white)!important}
+
+  .hero{min-height:100vh;background:var(--cream);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 48px 80px;position:relative;overflow:hidden}
+  .hero-eyebrow{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;font-weight:400}
+  .hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(64px,10vw,120px);font-weight:300;line-height:0.95;color:var(--dark);margin-bottom:32px;letter-spacing:-0.02em}
+  .hero-title em{font-style:italic;color:var(--gold)}
+  .hero-sub{font-size:16px;font-weight:300;color:var(--text2);max-width:460px;line-height:1.8;margin-bottom:52px;letter-spacing:0.01em}
+  .hero-actions{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap}
+  .btn-primary{background:var(--dark);color:var(--cream);padding:16px 36px;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:all 0.25s;font-family:'DM Sans',sans-serif;font-weight:400;text-decoration:none;display:inline-block}
+  .btn-primary:hover{background:var(--gold);transform:translateY(-1px)}
+  .btn-secondary{background:transparent;color:var(--dark);padding:16px 36px;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;border:1px solid rgba(44,41,35,0.3);border-radius:2px;cursor:pointer;transition:all 0.25s;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block}
+  .btn-secondary:hover{border-color:var(--dark);transform:translateY(-1px)}
+  .hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px}
+  .hero-scroll span{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold2)}
+  .scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--gold2),transparent)}
+  .hero-decor{position:absolute;top:60px;right:80px;font-family:'Cormorant Garamond',serif;font-size:160px;color:rgba(139,115,85,0.07);font-weight:300;line-height:1;pointer-events:none;user-select:none}
+
+  .about{background:var(--white);padding:120px 48px}
+  .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1200px;margin:0 auto;align-items:center}
+  .about-label{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .about-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,56px);font-weight:300;line-height:1.15;color:var(--dark);margin-bottom:28px}
+  .about-body{font-size:15px;font-weight:300;line-height:1.9;color:var(--text2);margin-bottom:20px}
+  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:12px}
+  .stat{border-top:1px solid var(--cream3);padding-top:20px}
+  .stat-num{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--dark);line-height:1}
+  .stat-label{font-size:12px;color:var(--text2);margin-top:6px;letter-spacing:0.05em}
+  .about-visual{background:var(--cream);border-radius:4px;height:480px;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden}
+  .about-logo-arabic{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;color:var(--dark);margin-bottom:12px;letter-spacing:0.05em}
+  .about-visual sub{font-size:12px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);font-family:'DM Sans',sans-serif}
+  .about-badge{position:absolute;bottom:32px;right:32px;background:var(--dark);color:var(--cream);padding:14px 20px;border-radius:2px;font-size:11px;letter-spacing:0.08em;text-align:center}
+  .about-badge strong{display:block;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-top:2px}
+
+  .menu-section{background:var(--cream);padding:120px 48px}
+  .section-header{text-align:center;margin-bottom:72px}
+  .section-label{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+  .section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,52px);font-weight:300;color:var(--dark);line-height:1.2}
+  .menu-tabs{display:flex;justify-content:center;gap:0;margin-bottom:56px;border:1px solid var(--cream3);border-radius:2px;width:fit-content;margin-left:auto;margin-right:auto;overflow:hidden}
+  .tab{padding:12px 28px;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;border:none;font-family:'DM Sans',sans-serif;background:transparent;color:var(--text2)}
+  .tab.active{background:var(--dark);color:var(--cream)}
+  .tab:hover:not(.active){background:var(--cream3)}
+  .menu-grid{display:none;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2px;max-width:1100px;margin:0 auto}
+  .menu-grid.active{display:grid}
+  .menu-card{background:var(--white);padding:28px 32px;transition:all 0.2s;cursor:default}
+  .menu-card:hover{background:var(--dark)}
+  .menu-card:hover .item-name,.menu-card:hover .item-price,.menu-card:hover .item-name-ar{color:var(--cream)}
+  .menu-card:hover .item-desc{color:rgba(253,250,244,0.6)}
+  .item-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+  .item-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;color:var(--dark);transition:color 0.2s}
+  .item-name-ar{font-size:13px;color:var(--text2);margin-bottom:4px;transition:color 0.2s;direction:rtl}
+  .item-price{font-size:13px;font-weight:400;color:var(--gold);letter-spacing:0.05em;transition:color 0.2s;white-space:nowrap;margin-left:12px}
+  .item-desc{font-size:12px;color:var(--text2);line-height:1.6;transition:color 0.2s}
+  .menu-note{text-align:center;margin-top:40px;font-size:12px;color:var(--text2);letter-spacing:0.05em}
+
+  .experience{padding:120px 48px;max-width:1100px;margin:0 auto}
+  .exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:64px}
+  .exp-card{text-align:center;padding:40px 32px;border:0.5px solid var(--cream3);border-radius:2px;transition:all 0.25s}
+  .exp-card:hover{background:var(--cream);border-color:transparent;transform:translateY(-4px)}
+  .exp-icon{width:48px;height:48px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center}
+  .exp-icon svg{width:32px;height:32px;stroke:var(--gold);fill:none;stroke-width:1.5}
+  .exp-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;color:var(--dark);margin-bottom:12px}
+  .exp-text{font-size:13px;font-weight:300;color:var(--text2);line-height:1.8}
+
+  .testimonials{background:var(--dark);padding:100px 48px}
+  .test-header{text-align:center;margin-bottom:64px}
+  .test-label{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+  .test-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,48px);font-weight:300;color:var(--cream);line-height:1.2}
+  .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:1100px;margin:0 auto}
+  .test-card{background:rgba(255,255,255,0.04);padding:40px 32px}
+  .stars{display:flex;gap:4px;margin-bottom:20px}
+  .star{width:12px;height:12px;background:var(--gold);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+  .test-quote{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;font-style:italic;color:var(--cream);line-height:1.7;margin-bottom:24px}
+  .test-author{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold2)}
+
+  .contact{background:var(--cream);padding:120px 48px}
+  .contact-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+  .contact-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,52px);font-weight:300;color:var(--dark);margin-bottom:20px;line-height:1.15}
+  .contact-sub{font-size:14px;font-weight:300;color:var(--text2);line-height:1.8;margin-bottom:40px}
+  .contact-details{display:flex;flex-direction:column;gap:20px}
+  .contact-item{display:flex;gap:16px;align-items:flex-start}
+  .contact-icon{width:36px;height:36px;background:var(--dark);border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .contact-icon svg{width:16px;height:16px;stroke:var(--cream);fill:none;stroke-width:1.5}
+  .contact-info-label{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+  .contact-info-val{font-size:14px;color:var(--dark)}
+  .contact-form{display:flex;flex-direction:column;gap:16px}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group label{font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--text2)}
+  .form-group input,.form-group textarea{background:var(--white);border:1px solid var(--cream3);border-radius:2px;padding:14px 16px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--dark);outline:none;transition:border-color 0.2s;resize:none;width:100%}
+  .form-group input:focus,.form-group textarea:focus{border-color:var(--gold)}
+  .form-submit{background:var(--dark);color:var(--cream);padding:16px;font-size:12px;letter-spacing:0.15em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;transition:all 0.25s;font-family:'DM Sans',sans-serif;margin-top:8px;width:100%}
+  .form-submit:hover{background:var(--gold)}
+
+  footer{background:var(--dark);padding:60px 48px 40px;text-align:center}
+  .footer-logo{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--cream);margin-bottom:6px}
+  .footer-sub{font-size:11px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:32px}
+  .footer-insta{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.05);border:0.5px solid rgba(245,239,224,0.15);padding:10px 20px;border-radius:2px;color:var(--cream);font-size:12px;letter-spacing:0.1em;margin-bottom:32px;cursor:pointer;transition:all 0.2s;text-decoration:none}
+  .footer-insta:hover{background:rgba(255,255,255,0.1)}
+  .footer-insta svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:1.5}
+  .footer-divider{width:40px;height:1px;background:rgba(245,239,224,0.15);margin:0 auto 32px}
+  .footer-links{display:flex;gap:32px;justify-content:center;margin-bottom:40px;flex-wrap:wrap}
+  .footer-links a{font-size:12px;letter-spacing:0.08em;color:rgba(245,239,224,0.5);text-decoration:none;cursor:pointer;transition:color 0.2s}
+  .footer-links a:hover{color:var(--cream)}
+  .footer-copy{font-size:11px;color:rgba(245,239,224,0.3);letter-spacing:0.05em;padding-bottom:40px}
+
+  @media(max-width:768px){
+    nav{padding:16px 24px}
+    .nav-links{display:none}
+    .hero{padding:100px 24px 60px}
+    .hero-decor{display:none}
+    .about-inner{grid-template-columns:1fr;gap:40px}
+    .about{padding:80px 24px}
+    .about-visual{height:300px}
+    .menu-section,.experience{padding:80px 24px}
+    .exp-grid{grid-template-columns:1fr}
+    .test-grid{grid-template-columns:1fr}
+    .testimonials{padding:80px 24px}
+    .contact{padding:80px 24px}
+    .contact-inner{grid-template-columns:1fr;gap:48px}
+    footer{padding:48px 24px 32px}
+    .menu-tabs{flex-wrap:wrap}
+    .tab{padding:10px 16px;font-size:11px}
+  }
+</style>
+</head>
+<body>
+
+<!-- Watermark -->
+<div class="watermark">Mockup by <span>TheWebMechanic</span></div>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-logo">تلقيمه <span>Bakery &amp; Tea</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact" class="nav-cta">Visit Us</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+  <div class="hero-decor">تلقيمه</div>
+  <p class="hero-eyebrow">Bakery &amp; Tea &nbsp;·&nbsp; Cairo</p>
+  <h1 class="hero-title">Where Every<br>Cup Tells <em>a Story</em></h1>
+  <p class="hero-sub">Artisan teas, handcrafted breads, and flavors rooted in tradition. A sanctuary for those who appreciate the finer things.</p>
+  <div class="hero-actions">
+    <a href="#menu" class="btn-primary">Explore the Menu</a>
+    <a href="#contact" class="btn-secondary">Find Us</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Discover</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div>
+      <p class="about-label">Our Story</p>
+      <h2 class="about-title">Born from a love of warmth &amp; craft</h2>
+      <p class="about-body">تلقيمه is more than a bakery. It is a gathering place. We believe that the best moments happen over a perfectly brewed cup of tea and something freshly baked. Every item on our menu is made with intention, from our signature Karak to our artisan bratas.</p>
+      <p class="about-body">We source the finest ingredients and bring together recipes that honor tradition while celebrating creativity.</p>
+      <div class="about-stats">
+        <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Menu selections</div></div>
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Made with care</div></div>
+        <div class="stat"><div class="stat-num">6</div><div class="stat-label">Signature teas</div></div>
+        <div class="stat"><div class="stat-num">&#8734;</div><div class="stat-label">Good conversations</div></div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div style="text-align:center">
+        <div class="about-logo-arabic">تلقيمه</div>
+        <sub>Bakery &amp; Tea</sub>
+      </div>
+      <div class="about-badge">Prices excl. tax<strong>الأسعار غير شاملة الضريبة</strong></div>
+    </div>
+  </div>
+</section>
+
+<!-- Menu -->
+<section class="menu-section" id="menu">
+  <div class="section-header">
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Crafted for every occasion</h2>
+  </div>
+  <div class="menu-tabs">
+    <button class="tab active" onclick="showTab('drinks',this)">Drinks</button>
+    <button class="tab" onclick="showTab('iced',this)">Iced Tea</button>
+    <button class="tab" onclick="showTab('brata',this)">Brata</button>
+    <button class="tab" onclick="showTab('pizza',this)">Pizza</button>
+    <button class="tab" onclick="showTab('talgema',this)">تلقيمه</button>
+  </div>
+
+  <!-- Drinks -->
+  <div id="panel-drinks" class="menu-grid active">
+    <div class="menu-card"><div class="item-name-ar">كرك</div><div class="item-row"><span class="item-name">Karak</span><span class="item-price">135 LE</span></div><p class="item-desc">Rich, spiced milk tea brewed to perfection</p></div>
+    <div class="menu-card"><div class="item-name-ar">شاي تلقيمه</div><div class="item-row"><span class="item-name">Talgema Tea</span><span class="item-price">120 LE</span></div><p class="item-desc">Our signature house blend, steeped just right</p></div>
+    <div class="menu-card"><div class="item-name-ar">شاي مكس</div><div class="item-row"><span class="item-name">Mix Tea</span><span class="item-price">115 LE</span></div><p class="item-desc">A curated blend of premium loose teas</p></div>
+    <div class="menu-card"><div class="item-name-ar">شاي بخار</div><div class="item-row"><span class="item-name">Steam Tea</span><span class="item-price">115 LE</span></div><p class="item-desc">Delicate steam-infused aromatic tea</p></div>
+    <div class="menu-card"><div class="item-name-ar">حليب تلقيمه</div><div class="item-row"><span class="item-name">Talgema Milk</span><span class="item-price">115 LE</span></div><p class="item-desc">Velvety warm milk, our house style</p></div>
+    <div class="menu-card"><div class="item-name-ar">مياه بوفانا</div><div class="item-row"><span class="item-name">Bofana Water</span><span class="item-price">65 LE</span></div><p class="item-desc">Premium still water</p></div>
+  </div>
+
+  <!-- Iced Tea -->
+  <div id="panel-iced" class="menu-grid">
+    <div class="menu-card"><div class="item-name-ar">باشن فروت</div><div class="item-row"><span class="item-name">Passion Fruit Iced Tea</span><span class="item-price">165 LE</span></div><p class="item-desc">Tropical passion fruit over chilled tea</p></div>
+    <div class="menu-card"><div class="item-name-ar">بيتش ميلبا (خوخ وكركديه)</div><div class="item-row"><span class="item-name">Peach Melba Iced Tea</span><span class="item-price">165 LE</span></div><p class="item-desc">Peach and hibiscus, a floral summer classic</p></div>
+  </div>
+
+  <!-- Brata -->
+  <div id="panel-brata" class="menu-grid">
+    <div class="menu-card"><div class="item-name-ar">براتا شكشوكه</div><div class="item-row"><span class="item-name">Shakshuka Brata</span><span class="item-price">190 LE</span></div><p class="item-desc">Warm brata with rich tomato and egg shakshuka</p></div>
+    <div class="menu-card"><div class="item-name-ar">براتا مشروم ترافيل</div><div class="item-row"><span class="item-name">Mushroom Truffle Brata</span><span class="item-price">160 LE</span></div><p class="item-desc">Earthy mushrooms finished with truffle</p></div>
+    <div class="menu-card"><div class="item-name-ar">براتا لبنه وفيتا</div><div class="item-row"><span class="item-name">Labneh &amp; Feta Brata</span><span class="item-price">155 LE</span></div><p class="item-desc">Creamy labneh paired with crumbled feta</p></div>
+    <div class="menu-card"><div class="item-name-ar">براتا بيستو حلوم</div><div class="item-row"><span class="item-name">Pesto Halloumi Brata</span><span class="item-price">155 LE</span></div><p class="item-desc">Fresh pesto and golden grilled halloumi</p></div>
+  </div>
+
+  <!-- Pizza -->
+  <div id="panel-pizza" class="menu-grid">
+    <div class="menu-card"><div class="item-name-ar">بيتزا مشروم ترافل</div><div class="item-row"><span class="item-name">Mushroom Truffle</span><span class="item-price">199 LE</span></div></div>
+    <div class="menu-card"><div class="item-name-ar">بيتزا خضار</div><div class="item-row"><span class="item-name">Vegetable</span><span class="item-price">175 LE</span></div></div>
+    <div class="menu-card"><div class="item-name-ar">بيتزا بيروني</div><div class="item-row"><span class="item-name">Pepperoni</span><span class="item-price">199 LE</span></div></div>
+    <div class="menu-card"><div class="item-name-ar">بيتزا سبانخ</div><div class="item-row"><span class="item-name">Spinach</span><span class="item-price">185 LE</span></div></div>
+    <div class="menu-card"><div class="item-name-ar">بيتزا لبنه وعسل</div><div class="item-row"><span class="item-name">Labneh &amp; Honey</span><span class="item-price">185 LE</span></div></div>
+    <div class="menu-card"><div class="item-name-ar">بيتزا شكشوكه</div><div class="item-row"><span class="item-name">Shakshuka</span><span class="item-price">190 LE</span></div></div>
+    <div class="menu-card"><div class="item-name-ar">بيتزا ميكس تشيز</div><div class="item-row"><span class="item-name">Mix Cheese</span><span class="item-price">185 LE</span></div></div>
+    <div class="menu-card"><div class="item-name-ar">بيتزا جبن بالزعتر والزيتون</div><div class="item-row"><span class="item-name">Cheese, Thyme &amp; Olive</span><span class="item-price">180 LE</span></div></div>
+    <div class="menu-card"><div class="item-name-ar">بيتزا بيستو جرجير</div><div class="item-row"><span class="item-name">Pesto Arugula</span><span class="item-price">210 LE</span></div></div>
+    <div class="menu-card"><div class="item-name-ar">بيتزا حلوم كامل</div><div class="item-row"><span class="item-name">Full Halloumi</span><span class="item-price">215 LE</span></div></div>
+    <div class="menu-card"><div class="item-name-ar">بيتزا كرفت جبن مع عسل ومكسرات</div><div class="item-row"><span class="item-name">Craft Cheese, Honey &amp; Nuts</span><span class="item-price">210 LE</span></div></div>
+    <div class="menu-card"><div class="item-name-ar">لبنه سبيشيل مع الرمان</div><div class="item-row"><span class="item-name">Special Labneh &amp; Pomegranate</span><span class="item-price">195 LE</span></div></div>
+  </div>
+
+  <!-- Talgema Specials -->
+  <div id="panel-talgema" class="menu-grid">
+    <div class="menu-card"><div class="item-name-ar">مفروكه</div><div class="item-row"><span class="item-name">Mafrouká</span><span class="item-price">270 LE</span></div><p class="item-desc">The showstopper, our signature pastry</p></div>
+    <div class="menu-card"><div class="item-name-ar">سمبوسه جبن</div><div class="item-row"><span class="item-name">Cheese Sambousek</span><span class="item-price">160 LE</span></div><p class="item-desc">Crispy parcels filled with seasoned cheese</p></div>
+    <div class="menu-card"><div class="item-name-ar">سمبوسه بطاط</div><div class="item-row"><span class="item-name">Potato Sambousek</span><span class="item-price">160 LE</span></div><p class="item-desc">Golden fried parcels with spiced potato</p></div>
+  </div>
+
+  <p class="menu-note">* Prices do not include taxes &nbsp;·&nbsp; الأسعار غير شاملة الضريبة</p>
+</section>
+
+<!-- Experience -->
+<section class="experience" id="experience">
+  <div class="section-header">
+    <p class="section-label">The Talgema Difference</p>
+    <h2 class="section-title">An experience, not just a visit</h2>
+  </div>
+  <div class="exp-grid">
+    <div class="exp-card">
+      <div class="exp-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <h3 class="exp-title">Made to Order</h3>
+      <p class="exp-text">Every cup brewed fresh, every bite prepared with care. No shortcuts, no compromises.</p>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <h3 class="exp-title">With Intention</h3>
+      <p class="exp-text">Our recipes are crafted with love, balancing authentic flavors with a modern sensibility.</p>
+    </div>
+    <div class="exp-card">
+      <div class="exp-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3 class="exp-title">For Everyone</h3>
+      <p class="exp-text">A space where families, friends, and solo moments all feel equally welcome and at home.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+  <div class="test-header">
+    <p class="test-label">Guest Words</p>
+    <h2 class="test-title">What our guests say</h2>
+  </div>
+  <div class="test-grid">
+    <div class="test-card">
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="test-quote">"The Karak here is unlike anything else in Cairo. Warm, spiced, perfect every single time."</p>
+      <p class="test-author">Nour A., Regular Guest</p>
+    </div>
+    <div class="test-card">
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="test-quote">"The Mushroom Truffle Brata was a revelation. I came back three times in one week."</p>
+      <p class="test-author">Khaled M., Food Enthusiast</p>
+    </div>
+    <div class="test-card">
+      <div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="test-quote">"تلقيمه has become our Saturday morning ritual. The ambiance is just as good as the food."</p>
+      <p class="test-author">Sara H., Loyal Visitor</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <p class="about-label">Find Us</p>
+      <h2 class="contact-title">Come visit, we are waiting</h2>
+      <p class="contact-sub">Whether you are stopping by for a quick tea or settling in for a long afternoon, you are always welcome at تلقيمه.</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div><div class="contact-info-label">Location</div><div class="contact-info-val">Cairo, Egypt</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </div>
+          <div><div class="contact-info-label">Instagram</div><div class="contact-info-val">@talgema.egypt</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div><div class="contact-info-label">Hours</div><div class="contact-info-val">Open Daily</div></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="contact-form">
+        <div class="form-group"><label>Your Name</label><input type="text" placeholder="e.g. Nour Ahmed"></div>
+        <div class="form-group"><label>Phone / WhatsApp</label><input type="text" placeholder="+20 ..."></div>
+        <div class="form-group"><label>Message</label><textarea rows="4" placeholder="Reservation inquiry, question, or just say hello..."></textarea></div>
+        <button class="form-submit">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-logo">تلقيمه</div>
+  <div class="footer-sub">Bakery &amp; Tea</div>
+  <a href="https://instagram.com/talgema.egypt" target="_blank" class="footer-insta">
+    <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    @talgema.egypt
+  </a>
+  <div class="footer-divider"></div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-copy">&copy; 2025 تلقيمه Bakery &amp; Tea. All rights reserved.</div>
+</footer>
+
+<script>
+  function showTab(name, el) {
+    document.querySelectorAll('.menu-grid').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+    document.getElementById('panel-' + name).classList.add('active');
+    el.classList.add('active');
+  }
+</script>
+</body>
+</html>
